@@ -184,7 +184,7 @@
   <div id="clock"></div>
 
   <script>
-    // Spinner -> Content transition
+
     window.onload = () => {
       setTimeout(() => {
         document.getElementById('spinner').style.display = 'none';
@@ -192,7 +192,7 @@
       }, 2000);
     };
 
-    // Admin login prompt
+
     document.getElementById('admin-login').onclick = function () {
       const pass = prompt("Admin Password Required:");
       if (pass === 'demo123') {
@@ -202,13 +202,13 @@
       }
     };
 
-    // Live Clock
+
     setInterval(() => {
       const now = new Date();
       document.getElementById("clock").textContent = now.toLocaleTimeString();
     }, 1000);
 
-    // Particle background
+
     const canvas = document.getElementById("particles");
     const ctx = canvas.getContext("2d");
 
