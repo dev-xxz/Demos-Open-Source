@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Demo Removed</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      color: red;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 6px solid rgba(255, 0, 0, 0.2);
+      border-top: 6px solid red;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      z-index: 99;
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    #content {
+      display: none;
+      animation: fadeIn 1.5s ease-out forwards;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      padding: 20px;
+    }
+
+    #admin-login {
+      position: fixed;
+      top: 10px;
+      right: 15px;
+      font-size: 0.8rem;
+      background: transparent;
+      border: 1px solid red;
+      color: red;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      z-index: 100;
+    }
+
+    #admin-login:hover {
+      background: red;
+      color: black;
+    }
+
+    #lock-icon {
+      position: absolute;
+      top: 12px;
+      right: 100px;
+      font-size: 1rem;
+      animation: pulse 1.5s infinite ease-in-out;
+      color: red;
+      z-index: 100;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    #warning-icon {
+      font-size: 60px;
+      margin-bottom: 10px;
+    }
+
+    #message {
+      font-size: 2rem;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      margin-bottom: 10px;
+    }
+
+    #explanation {
+      font-size: 1rem;
+      color: red;
+      opacity: 0.8;
+      margin-bottom: 25px;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    #background-404 {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 15rem;
+      font-weight: bold;
+      color: rgba(255, 0, 0, 0.05);
+      z-index: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 10px 0;
+      color: rgba(255, 0, 0, 0.5);
+      font-size: 0.8rem;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 10;
+    }
+
+    #tech-quote {
+      color: rgba(255, 80, 80, 0.6);
+      font-size: 0.9rem;
+      margin-top: 20px;
+      animation: fadeIn 3s ease-out 2s forwards;
+      opacity: 0;
+    }
+
+    #clock {
+      position: fixed;
+      bottom: 10px;
+      right: 20px;
+      font-size: 0.9rem;
+      color: rgba(255, 0, 0, 0.5);
+      font-family: monospace;
+      z-index: 15;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="spinner"></div>
+
+  <div id="content">
+    <div id="background-404">404</div>
+
+    <div id="warning-icon">⚠️</div>
+
+    <div id="message">
+      This demo has been removed due to copyright.<br/>
+    </div>
+
+    <div id="explanation">
+      A new demo version that complies with copyright rules will replace it soon.
+    </div>
+  </div>
+
+  <footer>
+    xxz.exe | Demo Website
+  </footer>
+  <div id="clock"></div>
+
+  <script>
+    // Spinner -> Content transition
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById('spinner').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+      }, 2000);
+    };
+
+    // Admin login prompt
+    document.getElementById('admin-login').onclick = function () {
+      const pass = prompt("Admin Password Required:");
+      if (pass === 'demo123') {
+        alert("Access Denied: Invalid IP Address.");
+      } else if (pass) {
+        alert("Incorrect password.");
+      }
+    };
+
+    // Live Clock
+    setInterval(() => {
+      const now = new Date();
+      document.getElementById("clock").textContent = now.toLocaleTimeString();
+    }, 1000);
+
+    // Particle background
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    const particlesArray = [];
+    const numParticles = 140;
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2.5 + 0.5;
+        this.speedX = Math.random() * 1.2 - 0.6;
+        this.speedY = Math.random() * 1.2 - 0.6;
+        this.opacity = Math.random() * 0.5 + 0.3;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 0, 0, ${this.opacity})`;
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      for (let i = 0; i < numParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+  </script>
+</body>
+</html>
